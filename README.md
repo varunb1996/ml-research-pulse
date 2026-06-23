@@ -124,3 +124,7 @@ GitHub Actions (cron: Sun 14:30 UTC = 8 PM IST)
   ├── deploy web/out/ → gh-pages branch → GitHub Pages
   └── send HTML email via Gmail SMTP
 ```
+
+## Web Hosting
+
+https://varunb1996.github.io/ml-research-pulse
