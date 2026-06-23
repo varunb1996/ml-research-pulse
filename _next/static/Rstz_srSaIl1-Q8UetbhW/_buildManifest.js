@@ -1,7 +1,12 @@
 self.__BUILD_MANIFEST = {
   "__rewrites": {
     "afterFiles": [],
-    "beforeFiles": [],
+    "beforeFiles": [
+      {
+        "source": "/ml-research-pulse//_next/:path+",
+        "destination": "/ml-research-pulse/_next/:path+"
+      }
+    ],
     "fallback": []
   },
   "sortedPages": [

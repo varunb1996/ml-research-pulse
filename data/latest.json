@@ -1,13 +1,13 @@
 {
   "post_style": "roundup",
   "week_number": 26,
-  "generated_at": "2026-06-23T07:22:09.941298+00:00",
+  "generated_at": "2026-06-23T07:36:37.712471+00:00",
   "paper_of_week": {
     "index": 3,
-    "headline": "Randomized YaRN boosts length generalization",
-    "summary": "Large language models struggle with long-context reasoning. \n      Randomized YaRN improves this by enhancing sequence length generalization. \n      This breakthrough enables more effective and efficient language understanding.",
-    "key_takeaway": "Use Randomized YaRN to improve long-context reasoning in LLMs.",
-    "excitement_score": 8,
+    "headline": "Randomized YaRN Boosts Long-Context Reasoning",
+    "summary": "Large language models struggle with long-context reasoning. \n                  Randomized YaRN offers a solution by improving length generalization. \n                  This breakthrough enables more accurate and efficient language understanding.",
+    "key_takeaway": "Implement Randomized YaRN to enhance long-context reasoning in LLMs.",
+    "excitement_score": 9,
     "paper": {
       "id": "2606.23687v1",
       "title": "Randomized YaRN Improves Length Generalization for Long-Context Reasoning",
@@ -31,9 +31,9 @@
       "index": 1,
       "tldr": "AutoDex for dexterous grasping",
       "bullets": [
-        "Automated real-world system for data collection",
-        "Records physical outcomes of grasp attempts",
-        "Improves dexterous grasping robustness"
+        "Real-world data collection",
+        "Dexterous grasping",
+        "Robustness"
       ],
       "who_should_read": "Robotics engineers",
       "paper": {
@@ -58,9 +58,9 @@
       "index": 2,
       "tldr": "Lift4D for 4D reconstruction",
       "bullets": [
-        "Harmonizes single-view 3D estimation",
-        "Enables dynamic non-rigid object reconstruction",
-        "Integrates visual cues with data-driven priors"
+        "Monocular video",
+        "Dynamic non-rigid objects",
+        "Data-driven priors"
       ],
       "who_should_read": "Computer vision researchers",
       "paper": {
@@ -85,9 +85,9 @@
       "index": 5,
       "tldr": "CoorDex for humanoid loco-manipulation",
       "bullets": [
-        "Coordinates body and hand priors",
-        "Enables continuous dexterous humanoid movement",
-        "Improves humanoid robot control"
+        "Continuous loco-manipulation",
+        "Body and hand priors",
+        "Humanoid robots"
       ],
       "who_should_read": "Humanoid robotics engineers",
       "paper": {
@@ -112,11 +112,11 @@
       "index": 6,
       "tldr": "Semantic Browsing for image generation",
       "bullets": [
-        "Enables controllable diversity in image generation",
-        "Improves text-to-image model visual fidelity",
-        "Enhances prompt adherence"
+        "Controllable diversity",
+        "Text-to-image models",
+        "Visual fidelity"
       ],
-      "who_should_read": "Computer vision engineers",
+      "who_should_read": "NLP engineers",
       "paper": {
         "id": "2606.23679v1",
         "title": "Semantic Browsing: Controllable Diversity for Image Generation",
@@ -139,11 +139,11 @@
       "index": 9,
       "tldr": "IMAGIN-4D for interaction generation",
       "bullets": [
-        "Generates human-object interactions",
-        "Enables controllable interaction synthesis",
-        "Improves character animation and robotics"
+        "Human-object interactions",
+        "Character animation",
+        "Embodied AI"
       ],
-      "who_should_read": "Animation and robotics engineers",
+      "who_should_read": "Animation and robotics researchers",
       "paper": {
         "id": "2606.23675v1",
         "title": "IMAGIN-4D: Image-Guided Controllable Interaction Generation",
@@ -163,8 +163,8 @@
   ],
   "deep_dive": null,
   "one_thing_to_try": {
-    "action": "Evaluate AdamW under heavy-tailed noise",
-    "why": "AdamW is widely used in LLM training, but its effectiveness under heavy-tailed noise is unknown.",
+    "action": "Test Randomized YaRN on LLMs",
+    "why": "To improve long-context reasoning and efficiency.",
     "time_estimate": "2-3 hours",
     "difficulty": "intermediate"
   },
