@@ -9,6 +9,20 @@ venv/
 # Output (generated at runtime)
 output/
 
+# Python cache
+__pycache__/
+*.pyc
+
+# Next.js build artifacts
+web/.next/
+web/out/
+web/node_modules/
+
+# Claude Code internals
+web/AGENTS.md
+web/CLAUDE.md
+web/.claude/
+
 # Next.js
 web/.next/
 web/out/
