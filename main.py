@@ -39,9 +39,16 @@ def main():
     print(f"{'-' * 55}\n")
 
     # M3: Summarise with Groq
-    if os.getenv("GROQ_API_KEY"):
+    if not raw_data.get("papers"):
+        print("[M3] Skipping summarisation -- no papers fetched this run\n")
+        digest_data = raw_data
+    elif os.getenv("GROQ_API_KEY"):
         print("[M3] Running Groq summarisation...")
-        digest_data = rank_and_summarise(raw_data)
+        try:
+            digest_data = rank_and_summarise(raw_data)
+        except Exception as e:
+            print(f"[M3] Summarisation failed, falling back to raw data: {e}\n")
+            digest_data = raw_data
     else:
         print("[M3] Skipping summarisation -- GROQ_API_KEY not set\n")
         digest_data = raw_data

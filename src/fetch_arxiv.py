@@ -1,4 +1,5 @@
 import requests
+import time
 import xml.etree.ElementTree as ET
 import datetime
 from typing import Any
@@ -10,7 +11,7 @@ ARXIV_NS = "http://arxiv.org/schemas/atom"
 CATEGORIES = ["cs.AI", "cs.LG", "stat.ML", "cs.CL", "cs.CV"]
 
 
-def fetch_arxiv_papers(max_results: int = 30) -> list[dict[str, Any]]:
+def fetch_arxiv_papers(max_results: int = 30, retries: int = 3) -> list[dict[str, Any]]:
     query = " OR ".join(f"cat:{c}" for c in CATEGORIES)
     params = {
         "search_query": query,
@@ -20,11 +21,19 @@ def fetch_arxiv_papers(max_results: int = 30) -> list[dict[str, Any]]:
         "sortOrder": "descending",
     }
 
-    try:
-        resp = requests.get(ARXIV_API, params=params, timeout=15)
-        resp.raise_for_status()
-    except Exception as e:
-        print(f"[fetch_arxiv] Warning: {e}")
+    resp = None
+    for attempt in range(retries):
+        try:
+            resp = requests.get(ARXIV_API, params=params, timeout=15)
+            resp.raise_for_status()
+            break
+        except Exception as e:
+            print(f"[fetch_arxiv] Warning (attempt {attempt+1}/{retries}): {e}")
+            resp = None
+            if attempt < retries - 1:
+                time.sleep(5 * (attempt + 1))
+
+    if resp is None:
         return []
 
     try:

@@ -54,6 +54,8 @@ def _parse_json(raw: str) -> Any:
 
 def run_full_digest(raw_data: dict, client: Groq) -> dict:
     papers = raw_data.get("papers", [])[:10]
+    if not papers:
+        raise ValueError("No papers to summarise — all fetch sources returned empty")
     repos = raw_data.get("github_repos", [])[:3]
     post_style = raw_data.get("post_style", "roundup")
 
