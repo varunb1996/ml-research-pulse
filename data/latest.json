@@ -1,318 +1,35 @@
 {
-  "post_style": "deep-dive",
-  "week_number": 41,
-  "generated_at": "2026-10-11T19:05:40.154948+00:00",
+  "post_style": "roundup",
+  "week_number": 42,
+  "generated_at": "2026-10-18T17:28:38.435729+00:00",
   "paper_of_week": {
-    "index": 3,
-    "headline": "DreamTrue unlocks cross-embodiment, action‑faithful robot video prediction",
-    "summary": "Robots need world models that can predict the physical outcome of actions across different embodiments, yet existing models often drift and lack plausibility.\\nDreamTrue trains a multi‑view transformer on diverse robot datasets and then applies a counterfactual post‑training stage that learns a residual enforcing action fidelity, effectively grounding predictions in physics.\\nPractitioners can drop the model into existing planning pipelines, reducing the sim‑to‑real gap and enabling realistic video rollouts without per‑robot retraining.",
-    "key_takeaway": "Add a lightweight counterfactual fine‑tuning stage to any pretrained robot video model for immediate fidelity gains.",
+    "index": 2,
+    "headline": "Monocular video now yields full 4D geometry and motion effortlessly",
+    "summary": "Problem: Recovering full 4D scene structure from a single moving camera remains compute‑heavy and brittle.\nKey insight: Gen4P repurposes a pretrained video generator as a latent 4D perceiver, jointly optimizing geometry and motion without explicit depth supervision.\nWhy it matters: Practitioners can obtain dense 4D reconstructions with a single forward pass per frame, opening rapid prototyping for AR, robotics, and content creation.",
+    "key_takeaway": "Run the released Gen4P inference script on your own video to obtain 4D output without extra training.",
     "excitement_score": 9,
     "paper": {
-      "id": "2610.12468v1",
-      "title": "DreamTrue: Action-Faithful Robot World Model with Counterfactual Post-Training",
-      "summary": "We present DreamTrue, a multi-view, cross-embodiment robot world model for action-faithful and physically plausible video prediction. Training such a model on existing robot datasets faces two obstacles: imprecise calibration can impair action following, while limited coverage of unsuccessful interactions can bias predictions toward successful outcomes. To improve action following across embodiments, we render action trajectories into image-space conditions and introduce offline geometric calibration to align these conditions with the target videos. To broaden interaction coverage, we introduce counterfactual post-training, modifying recorded action trajectories and generating future videos under a wider range of actions and contact configurations. To provide feedback on these predictions without paired ground-truth futures, we construct a human-annotated video dataset covering robot, object, and interaction defects and use it to train an embodied video reward model. Its scores guide reinforcement-learning post-training toward more physically plausible interaction outcomes. On AgiBot, DreamTrue attains state-of-the-art action following, while reducing the human-assessed interaction defect rate from from 48.12% to 6.25%. Notably, our model ranks first in the world model track of the AgiBot World Challenge 2026. The project page can be found at https://brave-eai.github.io/DreamTrue.",
+      "id": "2610.22371v1",
+      "title": "Gen4P: Video Generators are 4D Perceivers",
+      "summary": "We introduce Gen4P, a unified framework for recovering 4D geometry and motion from monocular video. We show that a pretrained video generator can be repurposed into a feed-forward 4D perceiver without iterative denoising. Building on on-demand querying, Gen4P processes clean video latents in a single encoder pass and predicts the requested 4D attributes through a lightweight cross-attention decoder. The on-demand query formulation enables flexible spatial sampling, and our proposed continuous-time queries further provide temporal flexibility. To strengthen geometric knowledge, we propose a straightforward plug-in solution by incorporating a pretrained video-depth LoRA as a frozen geometry prior, improving overall performance without adding extra trainable parameters. Gen4P achieves state-of-the-art or competitive performance on tasks of 3D point tracking, video depth and camera pose estimation. Qualitative results on in-the-wild videos illustrate its capability of tracking complex motion while maintaining the delicate structure. Together, these results demonstrate the potential of video generative pretraining for unified 4D perception. See https://gen4p.github.io for more visual results.",
       "authors": [
-        "Junyan Li",
-        "Ruizhi Li",
-        "Yu Liu"
+        "Yitong Xia",
+        "Zeren Jiang",
+        "Chuanxia Zheng"
       ],
-      "url": "https://arxiv.org/abs/2610.12468v1",
-      "pdf_url": "https://arxiv.org/pdf/2610.12468v1",
-      "category": "cs.RO",
+      "url": "https://arxiv.org/abs/2610.22371v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.22371v1",
+      "category": "cs.CV",
       "source": "arxiv",
-      "published": "2026-10-08T17:59:51Z",
+      "published": "2026-10-15T17:59:48Z",
       "github_implementations": 3,
       "implementation_gap": false
     }
   },
-  "top_papers": [
-    {
-      "index": 1,
-      "tldr": "Learn dexterous hand skills from a single human video.",
-      "bullets": [
-        "Single demonstration suffices",
-        "Domain‑transfer via visual‑to‑robot mapping",
-        "Handles high‑DoF hands"
-      ],
-      "who_should_read": "Robotics manipulation engineers",
-      "paper": {
-        "id": "2610.12470v1",
-        "title": "Dex-One2Many: Learning Dexterous Manipulation from a Single Human Demonstration",
-        "summary": "While learning dexterous manipulation from a single human video offers a promising alternative to costly robot demonstrations, many recent methods predominantly imitate demonstrated motions. Such strict motion matching often limits generalization to initial object poses, goal poses, and grasps not shown in the video. Alternatively, discovering a policy via reinforcement learning (RL) allows for broad generalization, but without prior guidance, it struggles with high-dimensional exploration in complex, multi-stage tasks. To address these coupled generalization and exploration challenges, we present Dex-One2Many, a real-to-sim-to-real framework that learns a generalizable dexterous manipulation policy from a single human video. Our key insight is to abstract the video into sequential scene graphs that guide RL, enabling efficient exploration while preserving broad generalizability. The graphs serve as generative constraints for sampling diverse reset states and provide dense rewards for each stage. Because the graphs constrain relations rather than exact poses, these reset states cover object poses and grasps beyond the video, while initializing each stage from them with dense rewards keeps exploration short and guided. Trained entirely in simulation, Dex-One2Many transfers zero-shot to a real multi-fingered hand. Across five tool-use and manipulation tasks, Dex-One2Many exceeds baselines by 6.5% in seen configurations, while its robust generalization widens this gap to 71% in unseen scenarios.",
-        "authors": [
-          "Jusuk Lee",
-          "Sungha Kim",
-          "Yeonsoo Park"
-        ],
-        "url": "https://arxiv.org/abs/2610.12470v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.12470v1",
-        "category": "cs.RO",
-        "source": "arxiv",
-        "published": "2026-10-08T17:59:58Z",
-        "github_implementations": 3,
-        "implementation_gap": false
-      }
-    },
-    {
-      "index": 2,
-      "tldr": "Self‑distilling image editor that validates edits with a reward model.",
-      "bullets": [
-        "Reward‑verified self‑distillation",
-        "No human‑edited pairs needed",
-        "Improves instruction following"
-      ],
-      "who_should_read": "Computer‑vision / generative AI developers",
-      "paper": {
-        "id": "2610.12469v1",
-        "title": "Rubric-CEPR: Self-Evolving Image Editing via Reward-Verified Self-Distillation",
-        "summary": "Instruction-guided image editors have become highly capable, yet improving them further still depends on human-edited training pairs or external reward models. Such supervision is costly to obtain and can reward plausible failures: a realistic output may leave the requested change undone or alter content that should be preserved. In this work, we strive to improve a pretrained image editor using only its own generations, without human-edited targets or an external training-time reward model. To this end, we propose a self-evolving framework, named Rubric-CEPR, that verifies the editor's own samples with its internal representations through a rubric-augmented Contrastive Edit-Preservation Reward (CEPR). A Planner proposes structured edit instructions from unlabeled images, the Editor samples multiple candidate edits, and a frozen Critic scores each candidate with decomposed rubric checks for edit realization, removal of the old state, and content preservation, using features already exposed by the editor. Non-compensatory gates reject infeasible candidates, and the best verified candidate is distilled into the editor through lightweight adapter training. On Qwen-Image-Edit, Rubric-CEPR improves ImgEdit from 4.36 to 4.60 (+5.5%), with a +24.9% gain on object isolation, and transfers to GEdit-Bench and Complex-Edit. The same procedure also improves Step1X-Edit by +7.8% on ImgEdit. We hope our approach will serve as a solid baseline for image editors that improve themselves from their own verified samples. Our code is publicly available at $\\href{https://riteshthawkar.github.io/Rubric-CEPR/}{\\text{this URL}}$",
-        "authors": [
-          "Ritesh Thawkar",
-          "Shubham Patle",
-          "Shravan Venkatraman"
-        ],
-        "url": "https://arxiv.org/abs/2610.12469v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.12469v1",
-        "category": "cs.CV",
-        "source": "arxiv",
-        "published": "2026-10-08T17:59:58Z",
-        "github_implementations": 3,
-        "implementation_gap": false
-      }
-    },
-    {
-      "index": 4,
-      "tldr": "Safety filter that conditions motion generation on scene context.",
-      "bullets": [
-        "Contextual safety scoring",
-        "Integrates with text‑to‑motion models",
-        "Reduces unsafe trajectories"
-      ],
-      "who_should_read": "Animators and embodied AI researchers",
-      "paper": {
-        "id": "2610.12467v1",
-        "title": "CSF: Contextual Safety Filtering for Motion Generators",
-        "summary": "Text-conditioned motion generators produce trackable whole-body motion, but they have no notion of scene-dependent safety: the same action may target an object or a person. Existing safeguards either inspect the prompt, require labeled motion data, or enforce geometric constraints; therefore, they do not directly account for how scene context changes a motion's meaning. We introduce contextual safety filtering (CSF), a training-free filter that grounds natural-language safety rules in safe and unsafe reference trajectories produced by the generator. For each active rule, safe and unsafe reference trajectories define an affine safety value that a safe reference tracking CBF-QP enforces. Across four pretrained generators with different architectures, CSF activates the intended rules in all explicit and scene-triggered unsafe cases and reduces the danger-event rate by up to 90%, while preserving 88-100% of benign motions. We demonstrate the complete system on a real-world Unitree G1, where it successfully prevents unsafe motions in a variety of scenarios, including interactions with humans and objects.",
-        "authors": [
-          "Lizhi Yang",
-          "Yiling Hou",
-          "Yao Tang"
-        ],
-        "url": "https://arxiv.org/abs/2610.12467v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.12467v1",
-        "category": "cs.RO",
-        "source": "arxiv",
-        "published": "2026-10-08T17:59:50Z",
-        "github_implementations": 3,
-        "implementation_gap": false
-      }
-    },
-    {
-      "index": 6,
-      "tldr": "Mega‑scale RL uses balanced data to overcome exploration bottlenecks.",
-      "bullets": [
-        "Curriculum‑driven data diet",
-        "Scales to locomotion and manipulation",
-        "Improves sample efficiency"
-      ],
-      "who_should_read": "RL researchers building generalist robots",
-      "paper": {
-        "id": "2610.12465v1",
-        "title": "A Balanced Data Diet: Addressing the Exploration Bottleneck in Mega-Scale RL for Robot Control",
-        "summary": "General-purpose robots must perform a wide range of tasks from agile locomotion to dexterous manipulation. While sim-to-real reinforcement learning (RL) has proven to be a useful tool for this goal, current RL pipelines depend on engineering-heavy, per-task structural priors such as shaped rewards and demonstrations. Recent work has shown that diverse simulator resets, combined with massively parallel simulation, can alleviate much of this engineering burden on several manipulation problems. However, we find that naively scaling this paradigm to more precise or dynamic problems remains non-trivial. While simulator resets can help with exploration, uniformly sampling over this distribution wastes a growing fraction of learning experience on task configurations the policy has already mastered or cannot yet attempt. This makes it challenging to see the expected benefits of scaling parallel environments for RL, since much of the learning signal in a batch is wasted during learning. To mitigate this, we introduce Success Guided Sampling (SGS), a simple adaptive sampler that concentrates RL training on task configurations around the frontier of the policy's capabilities. Doing so allows large-scale simulated RL to make the most out of the experience in a batch, enabling much more effective scaling to large-scale parallel simulation. Across experiments using up to $2^{20}$ (over one million) parallel environments, SGS enables RL to solve challenging multi-terrain quadruped locomotion and contact-rich assembly tasks that prior methods fail to solve. Finally, we distill the learned manipulation policies into RGB-based policies and demonstrate zero-shot transfer to several challenging assembly tasks on real hardware. Project website: https://sgs-rl.github.io/.",
-        "authors": [
-          "Octi Zhang",
-          "Mateo Guaman Castro",
-          "Patrick Yin"
-        ],
-        "url": "https://arxiv.org/abs/2610.12465v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.12465v1",
-        "category": "cs.RO",
-        "source": "arxiv",
-        "published": "2026-10-08T17:59:50Z",
-        "github_implementations": 3,
-        "implementation_gap": false
-      }
-    },
-    {
-      "index": 8,
-      "tldr": "Ego‑centric video scaling reveals limits of world‑model generalization.",
-      "bullets": [
-        "30k‑hour dataset analysis",
-        "Identifies failure modes",
-        "Guides data‑centric improvements"
-      ],
-      "who_should_read": "Researchers on video‑based world models",
-      "paper": {
-        "id": "2610.12464v1",
-        "title": "What 30,000 Hours of Ego-centric Video Does Not Teach",
-        "summary": "World models offer a promising alternative to physics-based simulators, yet remain far from practical deployment. We ask how far scaling ego-centric human video takes them, using a dataset of 30,000 hours spanning over 1,000 scene types and 14,000 contributors. Rather than relying on opaque downstream metrics, we directly evaluate agent and object-interaction fidelity on a challenging out-of-distribution benchmark. Increasing training data by 100x improves both, but unevenly: the agent is modeled well, while object fidelity remains far lower and improves slowly. We show that the agent gains need not come from data, and a careful visual conditioning design saturates fidelity with a fraction of it, which lets us measure object fidelity on its own and discover its saturation point. We then introduce a supervision scheme that shifts capacity from scene appearance toward object dynamics, improving object fidelity though a substantial gap remains. Finally, our conclusions transfer to downstream humanoid modeling. Overall, our results suggest that scaling ego-centric data brings agent modeling close to its limit while leaving its effects on the world far behind, and that closing this gap will depend on how models are trained, not only on how much data they see.",
-        "authors": [
-          "Jiahua Dong",
-          "Anurag Bagchi",
-          "Yash Jangir"
-        ],
-        "url": "https://arxiv.org/abs/2610.12464v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.12464v1",
-        "category": "cs.CV",
-        "source": "arxiv",
-        "published": "2026-10-08T17:59:49Z"
-      }
-    }
-  ],
+  "top_papers": [],
   "deep_dive": null,
-  "one_thing_to_try": {
-    "action": "Fine‑tune DreamTrue’s counterfactual head on your robot’s recent rollouts.",
-    "why": "It instantly aligns predictions with real dynamics, cutting planning errors.",
-    "time_estimate": "2‑3 hours",
-    "difficulty": "intermediate"
-  },
-  "github_repos": [
-    {
-      "id": "1405070384",
-      "title": "Takamatsu-Hikaru/AI-Research-Guide",
-      "summary": "AI 科研入门指南：大学选择、科研 60 问、入门项目、学习路线与论文卡片。A bilingual guide to getting started in AI research.",
-      "url": "https://github.com/Takamatsu-Hikaru/AI-Research-Guide",
-      "stars": 25,
-      "language": "JavaScript",
-      "topics": [
-        "ai",
-        "chinese",
-        "education",
-        "getting-started",
-        "machine-learning",
-        "research"
-      ],
-      "source": "github",
-      "created_at": "2026-10-05T03:32:47Z"
-    },
-    {
-      "id": "1408152368",
-      "title": "PkLavc/Autotrader",
-      "summary": "Autonomous AI trading system powered by Kronos. Forecasts markets, builds portfolios and paper-trades automatically with GitHub Actions.",
-      "url": "https://github.com/PkLavc/Autotrader",
-      "stars": 25,
-      "language": "Python",
-      "topics": [
-        "ai-trading-system",
-        "algorithmic-trading-quantitative",
-        "artificial-intelligence",
-        "automated-trading-tool",
-        "deep-learning",
-        "finance",
-        "financial-machine-learning",
-        "github-actions",
-        "machine-learning",
-        "market-prediction",
-        "paper-trading-platform",
-        "portfolio-optimization",
-        "python",
-        "pytorch",
-        "quantitative-finance",
-        "quantitative-trading-tool",
-        "stock-market",
-        "stock-prediction",
-        "time-series-forecasting",
-        "trading-bot-ai-automated"
-      ],
-      "source": "github",
-      "created_at": "2026-10-07T02:43:14Z"
-    },
-    {
-      "id": "1405236282",
-      "title": "The-SEMQ-Group/semq",
-      "summary": "Deterministic symbolic codes for embedding vectors. Byte-identical across CPUs and languages, content-addressed, diffable and verifiable. C core with Python, Rust, Go and TypeScript bindings.",
-      "url": "https://github.com/The-SEMQ-Group/semq",
-      "stars": 12,
-      "language": "Python",
-      "topics": [
-        "audit",
-        "c",
-        "content-addressable",
-        "determinism",
-        "embeddings",
-        "golang",
-        "machine-learning",
-        "python",
-        "quantization",
-        "rag",
-        "reproducibility",
-        "rust",
-        "sdk",
-        "simd",
-        "typescript",
-        "vector-search",
-        "webassembly"
-      ],
-      "source": "github",
-      "created_at": "2026-10-05T06:13:01Z"
-    },
-    {
-      "id": "1410128708",
-      "title": "Spydonny/s6e8-lookup-transformer",
-      "summary": "My Lookup-Transformer solution for Kaggle S6E8: public LB ROC AUC 0.97041. Adopted in a 14th-place solution; 11 verified Kaggle references.",
-      "url": "https://github.com/Spydonny/s6e8-lookup-transformer",
-      "stars": 11,
-      "language": "Jupyter Notebook",
-      "topics": [
-        "classification",
-        "feature-engineering",
-        "kaggle",
-        "machine-learning",
-        "pytorch",
-        "tabular-deep-learning",
-        "transformer"
-      ],
-      "source": "github",
-      "created_at": "2026-10-08T10:16:09Z"
-    },
-    {
-      "id": "1405933934",
-      "title": "matteodisalvo/HeroFig",
-      "summary": "A visual desktop editor for creating publication-ready scientific figures, with domain-specific libraries, real-time collaboration, and export to PDF, SVG, PNG, and LaTeX/TikZ.",
-      "url": "https://github.com/matteodisalvo/HeroFig",
-      "stars": 10,
-      "language": "TypeScript",
-      "topics": [
-        "academic-papers",
-        "deep-learning",
-        "desktop-app",
-        "diagram-editor",
-        "electron",
-        "figures",
-        "latex",
-        "machine-learning",
-        "macos",
-        "research",
-        "scientific-figures",
-        "tikz",
-        "windows"
-      ],
-      "source": "github",
-      "created_at": "2026-10-05T14:52:12Z"
-    },
-    {
-      "id": "1412578826",
-      "title": "lerqian883-alt/dsh-plugin-ml-phase-gate",
-      "summary": "Evidence-backed ML phase gates, live visualization, and portable project bootstrap for DeepSeek Harness.",
-      "url": "https://github.com/lerqian883-alt/dsh-plugin-ml-phase-gate",
-      "stars": 6,
-      "language": "JavaScript",
-      "topics": [
-        "deepseek-harness",
-        "dsh",
-        "dsh-plugin",
-        "evidence-gate",
-        "machine-learning",
-        "mlops",
-        "phase-gate",
-        "workflow-visualization"
-      ],
-      "source": "github",
-      "created_at": "2026-10-10T00:13:12Z"
-    }
-  ],
+  "one_thing_to_try": null,
+  "github_repos": [],
   "hn_posts": [
     {
       "id": "42827913",
