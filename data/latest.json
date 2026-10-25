@@ -1,35 +1,354 @@
 {
-  "post_style": "roundup",
-  "week_number": 42,
-  "generated_at": "2026-10-18T17:28:38.435729+00:00",
+  "post_style": "deep-dive",
+  "week_number": 43,
+  "generated_at": "2026-10-25T17:44:47.528549+00:00",
   "paper_of_week": {
-    "index": 2,
-    "headline": "Monocular video now yields full 4D geometry and motion effortlessly",
-    "summary": "Problem: Recovering full 4D scene structure from a single moving camera remains compute‑heavy and brittle.\nKey insight: Gen4P repurposes a pretrained video generator as a latent 4D perceiver, jointly optimizing geometry and motion without explicit depth supervision.\nWhy it matters: Practitioners can obtain dense 4D reconstructions with a single forward pass per frame, opening rapid prototyping for AR, robotics, and content creation.",
-    "key_takeaway": "Run the released Gen4P inference script on your own video to obtain 4D output without extra training.",
-    "excitement_score": 9,
+    "index": 5,
+    "headline": "Random features suddenly become fully trainable, reshaping model scalability paradigm.",
+    "summary": "Problem: Scientific computing still relies on hand‑crafted basis functions or fixed random features, limiting accuracy and adaptability.\nKey insight: The authors identify a sharp phase transition where modest trainability of random features yields fully trainable networks, backed by theory and empirical scaling laws.\nWhy practitioners care: It explains when cheap random‑feature models can be upgraded to high‑performance nets without redesign, guiding resource allocation for large‑scale simulations.",
+    "key_takeaway": "Start with random features and add a small trainable head; expect full network performance beyond the identified transition.",
+    "excitement_score": 8,
     "paper": {
-      "id": "2610.22371v1",
-      "title": "Gen4P: Video Generators are 4D Perceivers",
-      "summary": "We introduce Gen4P, a unified framework for recovering 4D geometry and motion from monocular video. We show that a pretrained video generator can be repurposed into a feed-forward 4D perceiver without iterative denoising. Building on on-demand querying, Gen4P processes clean video latents in a single encoder pass and predicts the requested 4D attributes through a lightweight cross-attention decoder. The on-demand query formulation enables flexible spatial sampling, and our proposed continuous-time queries further provide temporal flexibility. To strengthen geometric knowledge, we propose a straightforward plug-in solution by incorporating a pretrained video-depth LoRA as a frozen geometry prior, improving overall performance without adding extra trainable parameters. Gen4P achieves state-of-the-art or competitive performance on tasks of 3D point tracking, video depth and camera pose estimation. Qualitative results on in-the-wild videos illustrate its capability of tracking complex motion while maintaining the delicate structure. Together, these results demonstrate the potential of video generative pretraining for unified 4D perception. See https://gen4p.github.io for more visual results.",
+      "id": "2610.31663v1",
+      "title": "Phase Transition from Random Features to Fully Trainable Networks",
+      "summary": "Constructing accurate and computationally tractable approximation spaces is a fundamental task in scientific computing. Partially trainable neural networks bridge fixed random features and fully adaptive representations. This paper quantifies a phase transition pattern in approximation bounds and observes analogous behavior in training errors: a rapid but smooth initial improvement followed by diminishing returns, with a sharper transition under greater initialization mismatch. Under polynomial spectral decay with exponent $α>1$ and leverage compatibility, we establish a squared $L_2$ approximation rate $\\mathcal{O}((κ_P\\log(m/δ)/m)^α)$ for two-layer networks of width $m$ and trainable proportion $P$, where $κ_P=(P/κ_1^*+(1-P)/κ_0^*)^{-1}$. The bound holds uniformly over the unit ball of a reproducing kernel Hilbert space (RKHS) with probability at least $1-δ$. The constants $κ_0^*$ and $κ_1^*$ quantify the fixed and trainable groups' sampling mismatches relative to the target RKHS. For spherical biased-ReLU features in dimension $d$, we verify these assumptions with $α=(d+2)/(d-1)$ and $κ_0^*=4\\sqrt{2}τ(d+1)/d$ for initialization scale $τ\\ge1$, and $κ_1^*=1$ under ridge leverage sampling. For $d=5$ and $τ=10$, a trainable proportion of approximately $4.1\\%$ captures $90\\%$ of the reduction in the approximation bound from $P=0$ to $P=1$. A structured three-layer example illustrates how a few trainable first-layer neurons exploit fixed downstream blocks through nonlinear composition. Numerical experiments across diverse settings, including networks with up to 15 layers, exhibit similar phase transitions in training errors.",
       "authors": [
-        "Yitong Xia",
-        "Zeren Jiang",
-        "Chuanxia Zheng"
+        "Xin He",
+        "Huan Lao",
+        "Xiliang Lu"
       ],
-      "url": "https://arxiv.org/abs/2610.22371v1",
-      "pdf_url": "https://arxiv.org/pdf/2610.22371v1",
-      "category": "cs.CV",
+      "url": "https://arxiv.org/abs/2610.31663v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.31663v1",
+      "category": "math.NA",
       "source": "arxiv",
-      "published": "2026-10-15T17:59:48Z",
+      "published": "2026-10-22T17:59:29Z",
       "github_implementations": 3,
       "implementation_gap": false
     }
   },
-  "top_papers": [],
+  "top_papers": [
+    {
+      "index": 1,
+      "tldr": "Generates 3D parts at multiple granularities from a single image.",
+      "bullets": [
+        "Variable granularity control",
+        "Unified architecture for part synthesis",
+        "User‑driven constraints"
+      ],
+      "who_should_read": "3D graphics engineers",
+      "paper": {
+        "id": "2610.31671v1",
+        "title": "A Unified Framework for Image-to-3D Part Generation via Variable Granularity",
+        "summary": "Controllable 3D part generation is pivotal for digital asset creation, yet existing methods lack the flexibility to accommodate diverse user workflows requiring varying levels of control. In this paper, we introduce FlexPart, a unified image-to-3D part generation framework that supports variable-granularity geometric conditions within a single model. By seamlessly integrating heterogeneous inputs, ranging from sparse points to dense bounding boxes and masks, via gated adaptive modulation, FlexPart unlocks a powerful cross-modal synergy. We also propose an asymmetric geometric guidance mechanism that leverages strong spatial priors to align representations across granularities, improving geometric consistency and facilitating inter-task synergy. Under mask conditioning on PartVerseXL, FlexPart reduces Part CD by 16.6% relative to TripoSG + SAM3D and by 10.5% relative to OmniPart, while maintaining competitive whole-mesh quality. The code can be found at https://github.com/Gucci233/FlexPart",
+        "authors": [
+          "Qiwen Gu",
+          "Xin Zhou",
+          "Xiwu Chen"
+        ],
+        "url": "https://arxiv.org/abs/2610.31671v1",
+        "pdf_url": "https://arxiv.org/pdf/2610.31671v1",
+        "category": "cs.CV",
+        "source": "arxiv",
+        "published": "2026-10-22T17:59:53Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 2,
+      "tldr": "Proposes offline proxy to predict embodied policy success.",
+      "bullets": [
+        "Platonic alignment metric",
+        "Correlation with real rollouts",
+        "Low‑cost evaluation"
+      ],
+      "who_should_read": "Robotics researchers",
+      "paper": {
+        "id": "2610.31670v1",
+        "title": "Sensorimotor Alignment: A Platonic Proxy for Embodied Policy Success",
+        "summary": "Robotic foundation models are typically evaluated through costly closed-loop rollouts, which motivates cheap offline proxies for model capability. The Platonic Representation Hypothesis (PRH) suggests that as representations improve, different modalities such as vision and language converge toward a shared statistical model of reality. We ask whether motion trajectories form another such modality: as embodied models become more capable, should their sensory representations converge toward the structure of physical motion? To examine this, we propose Sensorimotor Alignment ($S^2$), a training-free offline metric that measures how well a model's sensory representation aligns with the geometry of physical motion. We find that $S^2$ correlates positively with downstream robot task success across embodied model families, making it a low-cost offline proxy for prioritizing models before closed-loop evaluation. $S^2$ can also identify promising vision-language model (VLM) backbones even before costly fine-tuning into vision-language-action models (VLAs). Beyond this correlation, $S^2$ offers representation-level explanations for phenomena observed in VLAs and world action models (WAMs). With $S^2$, we extend PRH to embodied models and make sensorimotor alignment empirically measurable, offering insight into why an embodied model succeeds beyond its closed-loop success rate.",
+        "authors": [
+          "Yunfei Xie",
+          "Howard H. Qian",
+          "Shiyi Lan"
+        ],
+        "url": "https://arxiv.org/abs/2610.31670v1",
+        "pdf_url": "https://arxiv.org/pdf/2610.31670v1",
+        "category": "cs.CV",
+        "source": "arxiv",
+        "published": "2026-10-22T17:59:51Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 3,
+      "tldr": "Introduces video world model that reads, writes, interacts with environment.",
+      "bullets": [
+        "Unified video understanding and generation",
+        "Interactive grounding",
+        "Benchmarks across tasks"
+      ],
+      "who_should_read": "Vision‑language engineers",
+      "paper": {
+        "id": "2610.31668v1",
+        "title": "Reading, Writing, Sharing, and Interacting with the World through Video",
+        "summary": "Video foundation models have advanced rapidly in understanding and generating visual sequences, while video world models seek to capture the underlying dynamics of the world they depict. Despite their different objectives, both concern the relationship between video observations and an evolving world. This survey adopts world modeling as a unifying lens for examining these developments. Viewing an observed video as a partial, lossy, and temporally ordered projection of a latent temporal world, we organize the literature around four complementary operations: reading infers world properties from observed video; writing synthesizes video from specified or learned world conditions; sharing integrates understanding and generation through common modeling mechanisms; and interacting predicts and updates world states under actions and evolving observations. This perspective distinguishes temporal coherence in observed or generated sequences from consistency in the underlying world state. Across tasks, representations, models, datasets, and benchmarks, we trace a shift in emphasis from clip-level recognition and perceptual fidelity toward persistent state, controllable evolution, physical and causal validity, and evaluation grounded in interaction and downstream decisions, and we distill the open challenges that follow.",
+        "authors": [
+          "Shengqiong Wu",
+          "Meng Luo",
+          "Bobo Li"
+        ],
+        "url": "https://arxiv.org/abs/2610.31668v1",
+        "pdf_url": "https://arxiv.org/pdf/2610.31668v1",
+        "category": "cs.CV",
+        "source": "arxiv",
+        "published": "2026-10-22T17:59:50Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 4,
+      "tldr": "Optimizes pass@k directly for test‑time reasoning pruning.",
+      "bullets": [
+        "Gradient‑based pass@k loss",
+        "Balances quality/diversity",
+        "Improves inference efficiency"
+      ],
+      "who_should_read": "LLM inference engineers",
+      "paper": {
+        "id": "2610.31667v1",
+        "title": "Direct Pass@$k$ Optimization for Thought Pruning: Balancing Quality and Diversity in Test-Time Reasoning",
+        "summary": "Test-time scaling has emerged as a key inference strategy for reasoning models, where a model generates a large number of candidate solutions in the hope of finding at least one correct solution. Running all candidate solutions to completion can be computationally demanding, so recent work prunes the candidate pool after generating only a short prefix, committing further computation only to the surviving candidates. Existing pruning strategies divide broadly into two categories: Quality-based methods assign a score to each partial solution and discard those predicted to ultimately lead to an incorrect final solution, while diversity-based methods select partial solutions that follow different reasoning trajectories and are therefore likely to cover different final solutions. The tension between these two objectives is an instance of exploration versus exploitation, yet little to no prior work on pruning exposes this trade-off directly, let alone optimizes it. In this paper, we introduce a pruning procedure that addresses this trade-off directly by optimizing pass@$k$ over the selected solution pool. In particular, it chooses the pool to maximize the probability that at least one of its partial solutions, when continued to completion, yields a correct answer. Because this objective simultaneously rewards high-quality partial solutions and penalizes redundancy among them, quality and diversity are naturally balanced by the criterion itself rather than through separate ad-hoc design choices. On eight open-weight reasoning models, our method outperforms existing quality-based and diversity-based pruning strategies. The gains are particularly pronounced when the pruning procedure keeps a moderate number of partial solutions for continued generation, highlighting the value of directly balancing quality and diversity during pruning.",
+        "authors": [
+          "Mahdi Salmani",
+          "Adel Javanmard",
+          "Devansh Gupta"
+        ],
+        "url": "https://arxiv.org/abs/2610.31667v1",
+        "pdf_url": "https://arxiv.org/pdf/2610.31667v1",
+        "category": "cs.AI",
+        "source": "arxiv",
+        "published": "2026-10-22T17:59:48Z",
+        "github_implementations": 3,
+        "implementation_gap": false
+      }
+    },
+    {
+      "index": 6,
+      "tldr": "Online selective auditing reduces risk of AI decision pipelines.",
+      "bullets": [
+        "Auditing policy with budget",
+        "Theoretical guarantees",
+        "Real‑world case studies"
+      ],
+      "who_should_read": "ML ops practitioners",
+      "paper": {
+        "id": "2610.31662v1",
+        "title": "Reliable AI-Assisted Decisions via Selective Auditing",
+        "summary": "We consider online monitoring of an AI system that produces a sequence of decisions. At each round, the system outputs a proposed decision together with a confidence score estimating the trustworthiness of the decision. The decision and confidence score need not be produced by the same model: for example, one agent may propose a decision, while a separate verifier agent evaluates it and outputs a correctness or safety score. Based on this information, we must decide whether to accept the AI decision automatically or consult an expert, such as a human auditor, who reviews the proposal and either accepts or corrects it. We formulate this task as an online constrained optimization problem in which the goal is to minimize the frequency of expert auditing while guaranteeing that the fraction of AI errors that go unaudited stays below a user-defined threshold. We derive a family of algorithms with provable error-control guarantees with no assumptions, including a method that is optimally efficient: it asymptotically attains the best achievable auditing rate for both adversarial and i.i.d. data streams. Experiments on screening harmful requests to large language models, qualitative text annotation, and data labeling show that our methods achieve valid error control in practice while substantially reducing the need for human auditing compared to baselines.",
+        "authors": [
+          "Isaac Gibbs",
+          "Elise L. Han",
+          "Ryan J. Tibshirani"
+        ],
+        "url": "https://arxiv.org/abs/2610.31662v1",
+        "pdf_url": "https://arxiv.org/pdf/2610.31662v1",
+        "category": "stat.ML",
+        "source": "arxiv",
+        "published": "2026-10-22T17:59:22Z",
+        "github_implementations": 0,
+        "implementation_gap": true
+      }
+    }
+  ],
   "deep_dive": null,
-  "one_thing_to_try": null,
-  "github_repos": [],
+  "one_thing_to_try": {
+    "action": "Run the phase‑transition experiment on your random‑feature model using the authors’ code.",
+    "why": "It reveals whether your cheap baseline can be upgraded without redesign.",
+    "time_estimate": "2-3 hours",
+    "difficulty": "intermediate"
+  },
+  "github_repos": [
+    {
+      "id": "1428105252",
+      "title": "TheLastOxygen/mafdet",
+      "summary": "You type. It already knows. Local LLMs that read and think while you type.",
+      "url": "https://github.com/TheLastOxygen/mafdet",
+      "stars": 53,
+      "language": "Python",
+      "topics": [
+        "deep-learning",
+        "framework",
+        "large-language-models",
+        "llm-inference",
+        "llm-tools",
+        "local-ai",
+        "local-development",
+        "machine-learning",
+        "research-project",
+        "research-tool"
+      ],
+      "source": "github",
+      "created_at": "2026-10-21T08:37:56Z"
+    },
+    {
+      "id": "1429736272",
+      "title": "FrontiersMindAI/decisionformer",
+      "summary": "Transformers for decision models: fine-tune, load and serve calibrated decsion-model on any Hugging Face model.",
+      "url": "https://github.com/FrontiersMindAI/decisionformer",
+      "stars": 34,
+      "language": "Python",
+      "topics": [
+        "decision-model",
+        "decision-models",
+        "decoder",
+        "deep-learning",
+        "encoder",
+        "glm",
+        "jev-model",
+        "llm",
+        "machine-learning",
+        "pytorch",
+        "qwen"
+      ],
+      "source": "github",
+      "created_at": "2026-10-22T12:45:27Z"
+    },
+    {
+      "id": "1427493486",
+      "title": "somastllc/nlp-for-machine-learning-bootcamp",
+      "summary": "NLP for Machine Learning Bootcamp.",
+      "url": "https://github.com/somastllc/nlp-for-machine-learning-bootcamp",
+      "stars": 25,
+      "language": null,
+      "topics": [
+        "ai",
+        "bootcamp",
+        "machine-learning",
+        "nlp"
+      ],
+      "source": "github",
+      "created_at": "2026-10-20T19:48:09Z"
+    },
+    {
+      "id": "1426942815",
+      "title": "niuniu-869/humanitys-last-math-book",
+      "summary": "人类最后一本数理基础书：从中学数学到读懂大模型，一本随读者提问不断迭代的开源教材，附 dsh 答疑插件 · Humanity's Last Math Book",
+      "url": "https://github.com/niuniu-869/humanitys-last-math-book",
+      "stars": 15,
+      "language": "Python",
+      "topics": [
+        "calculus",
+        "chinese",
+        "deep-learning",
+        "deepseek",
+        "linear-algebra",
+        "machine-learning",
+        "manim",
+        "mathematics",
+        "open-educational-resources",
+        "probability",
+        "textbook"
+      ],
+      "source": "github",
+      "created_at": "2026-10-20T11:41:50Z"
+    },
+    {
+      "id": "1428839043",
+      "title": "recranvvi5c/Machine-learning-pipeline",
+      "summary": "Reproducible text-classification pipeline - Hydra configs, DVC data, MLflow tracking and a scikit-learn grid search.",
+      "url": "https://github.com/recranvvi5c/Machine-learning-pipeline",
+      "stars": 12,
+      "language": "Python",
+      "topics": [
+        "dvc",
+        "experiment-tracking",
+        "grid-search",
+        "hydra",
+        "machine-learning",
+        "mlflow",
+        "nlp",
+        "pipeline",
+        "python",
+        "reproducibility",
+        "scikit-learn",
+        "text-classification",
+        "tooling"
+      ],
+      "source": "github",
+      "created_at": "2026-10-21T19:28:45Z"
+    },
+    {
+      "id": "1429785504",
+      "title": "leofmarciano/groot",
+      "summary": "🌳 Groot 1 — open typed-decision model. Calibrated choice/score/yes-no answers over 64k-token states, System One API compatible, with a pure Bend engine. Beats Jev on zero-shot Folha news (87.8% vs 85.8%) and typed decisions (75.3% vs 73.7%).",
+      "url": "https://github.com/leofmarciano/groot",
+      "stars": 12,
+      "language": "Python",
+      "topics": [
+        "bend",
+        "bend-lang",
+        "calibration",
+        "decision-model",
+        "jev",
+        "llm-routing",
+        "long-context",
+        "machine-learning",
+        "mmbert",
+        "modernbert",
+        "multilingual",
+        "nlp",
+        "pytorch",
+        "system-one",
+        "text-classification",
+        "typed-decisions"
+      ],
+      "source": "github",
+      "created_at": "2026-10-22T13:27:57Z"
+    },
+    {
+      "id": "1428332202",
+      "title": "usamahz/computer-vision-engineering",
+      "summary": "A reading path for computer vision engineering, from photon to production. Primary sources in dependency order, evidence-graded claims, and a runnable benchmark per section.",
+      "url": "https://github.com/usamahz/computer-vision-engineering",
+      "stars": 10,
+      "language": "Python",
+      "topics": [
+        "awesome-list",
+        "benchmarks",
+        "computer-vision",
+        "deep-learning",
+        "image-processing",
+        "machine-learning",
+        "reading-list"
+      ],
+      "source": "github",
+      "created_at": "2026-10-21T12:09:50Z"
+    },
+    {
+      "id": "1427399256",
+      "title": "Koustubh12345/TenSeiAi",
+      "summary": "From-scratch Mixture-of-Experts (MoE) language model and offline AI engine in pure Python & NumPy. Zero PyTorch. Zero GGUF.",
+      "url": "https://github.com/Koustubh12345/TenSeiAi",
+      "stars": 9,
+      "language": "Python",
+      "topics": [
+        "android",
+        "from-scratch",
+        "machine-learning",
+        "mixture-of-experts",
+        "numpy",
+        "offline-ai",
+        "python",
+        "termux",
+        "transformer"
+      ],
+      "source": "github",
+      "created_at": "2026-10-20T18:14:19Z"
+    }
+  ],
   "hn_posts": [
     {
       "id": "42827913",
@@ -68,5 +387,23 @@
       "created_at": "2025-02-23T22:31:44Z"
     }
   ],
-  "implementation_gaps": []
+  "implementation_gaps": [
+    {
+      "id": "2610.31662v1",
+      "title": "Reliable AI-Assisted Decisions via Selective Auditing",
+      "summary": "We consider online monitoring of an AI system that produces a sequence of decisions. At each round, the system outputs a proposed decision together with a confidence score estimating the trustworthiness of the decision. The decision and confidence score need not be produced by the same model: for example, one agent may propose a decision, while a separate verifier agent evaluates it and outputs a correctness or safety score. Based on this information, we must decide whether to accept the AI decision automatically or consult an expert, such as a human auditor, who reviews the proposal and either accepts or corrects it. We formulate this task as an online constrained optimization problem in which the goal is to minimize the frequency of expert auditing while guaranteeing that the fraction of AI errors that go unaudited stays below a user-defined threshold. We derive a family of algorithms with provable error-control guarantees with no assumptions, including a method that is optimally efficient: it asymptotically attains the best achievable auditing rate for both adversarial and i.i.d. data streams. Experiments on screening harmful requests to large language models, qualitative text annotation, and data labeling show that our methods achieve valid error control in practice while substantially reducing the need for human auditing compared to baselines.",
+      "authors": [
+        "Isaac Gibbs",
+        "Elise L. Han",
+        "Ryan J. Tibshirani"
+      ],
+      "url": "https://arxiv.org/abs/2610.31662v1",
+      "pdf_url": "https://arxiv.org/pdf/2610.31662v1",
+      "category": "stat.ML",
+      "source": "arxiv",
+      "published": "2026-10-22T17:59:22Z",
+      "github_implementations": 0,
+      "implementation_gap": true
+    }
+  ]
 }
