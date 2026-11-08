@@ -1,111 +1,130 @@
 {
-  "post_style": "roundup",
-  "week_number": 44,
-  "generated_at": "2026-11-01T19:02:21.949123+00:00",
+  "post_style": "deep-dive",
+  "week_number": 45,
+  "generated_at": "2026-11-08T18:57:22.186953+00:00",
   "paper_of_week": {
-    "index": 5,
-    "headline": "Pixel Transformers achieve finer detail via role‑coupled tokenization breakthrough today",
-    "summary": "Problem: pixel‑space generative Transformers use one token per image patch, limiting resolution and inflating compute.\n\nInsight: role‑coupled tokenization splits each patch into read, allocate, and route tokens, enabling variable granularity and more efficient attention.\n\nPractitioner impact: halves token count for 256×256 images, improves sample quality, and drops in as a plug‑in replacement.",
-    "key_takeaway": "Replace the default patch tokenizer with the role‑coupled scheme to halve tokens at 256×256 resolution.",
+    "index": 10,
+    "headline": "Large-step adversarial training sharpens robustness, accelerates convergence, and reveals bias.",
+    "summary": "Adversarial training traditionally uses tiny perturbation steps, limiting robustness gains and making optimization fragile.\nThe authors show that deterministic gradient descent with much larger step sizes introduces an implicit bias that steers models toward flatter minima, improving both robustness and convergence speed.\nPractitioners can achieve stronger defenses with the same compute budget and gain clearer intuition about the trade‑offs between robustness, sharpness, and generalization.",
+    "key_takeaway": "When training robust models, try deterministic GD with step sizes an order of magnitude larger than typical.",
     "excitement_score": 9,
     "paper": {
-      "id": "2610.40647v1",
-      "title": "Read, Allocate, Route: Role-Coupled Tokenization for Pixel-Space Generative Transformers",
-      "summary": "Pixel-space generative Transformers typically use one token per image patch, so capturing finer detail requires more tokens and makes global attention increasingly expensive. We observe that finer detail does not necessarily require more global communication: low-frequency structure benefits from global exchange, while high-frequency detail can be modeled locally. Based on this insight, we introduce SpecSlot, a pixel-space rectified-flow Transformer that decouples output detail from the length of the global attention sequence. SpecSlot expands each spatial anchor into multiple slots, each assigned a disjoint band of DCT coefficients; this separates anchor density from spectral subdivision. Only the lowest-frequency slot from each anchor participates in global attention, while all slots interact locally. This allows the model to increase spectral detail without enlarging the global sequence. A spatial head further adds a local correction to the spectral prediction, while the generative state, target, and loss remain in pixel space. On ImageNet-256, SpecSlot achieves a comparable final FID to a FLOPs-matched JiT control while converging faster. On ImageNet-512, it improves FID by 2.84 over the control with 3.9% fewer FLOPs, and comes within only 0.69 FID of JiT-B/16 at 38.2% lower cost. On text-to-image generation, SpecSlot surpasses JiT-B/8 on DPG-Bench by 1.06 at 40.6% lower forward cost.",
+      "id": "2611.08457v1",
+      "title": "Adversarial Training with Large Step Sizes: Implicit Bias, Optimization, and Sharpness",
+      "summary": "Adversarial Training (AT) is an important method for improving model robustness. We study the dynamics of deterministic Gradient Descent (GD) in AT. Most existing works in this direction focus on the small or vanishing step sizes regime, where GD resembles a continuous-time flow. However, such step sizes can make training inefficient and are rarely used in practice. In this paper, we study the AT dynamics of GD with large constant step sizes. We first study GD in adversarial linear logistic regression, focusing on two aspects: where the model parameters converge (implicit bias) and how quickly the losses decrease (optimization). We then turn to neural networks training and study how the sharpness of losses evolve during AT. Our results advance the understanding of the behaviors of GD with large step sizes in AT and highlight three key differences from its behavior in Standard Training (ST): (i) the implicit bias gap between AT and ST, previously established only for small step sizes, persists for arbitrarily large constant step sizes, (ii) different from ST, there is no uniform rate of convergence for the optimization error in AT, and (iii) sharpness can exhibit two-stage dynamics that differ from the Edge-of-Stability behavior observed in ST.",
       "authors": [
-        "Jiongfan Yang",
-        "Weichen Fan",
-        "Haiwen Diao"
+        "Yi Feng",
+        "Andrea Paudice"
       ],
-      "url": "https://arxiv.org/abs/2610.40647v1",
-      "pdf_url": "https://arxiv.org/pdf/2610.40647v1",
-      "category": "cs.CV",
+      "url": "https://arxiv.org/abs/2611.08457v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.08457v1",
+      "category": "cs.LG",
       "source": "arxiv",
-      "published": "2026-10-29T17:59:21Z",
-      "github_implementations": 3,
-      "implementation_gap": false
+      "published": "2026-11-05T18:48:50Z"
     }
   },
   "top_papers": [
     {
       "index": 1,
-      "tldr": "Map LM predictions back to training data sources using attribution scores.",
+      "tldr": "User embeddings decompose into interpretable behavioral mode superpositions.",
       "bullets": [
-        "Formal definition of LM data attribution problem",
-        "Benchmark suite spanning fact retrieval and synthetic tasks",
-        "Empirical analysis of attribution methods across model scales"
+        "Formalize embeddings as linear combos of mode vectors",
+        "Method to extract interpretable modes",
+        "Improved recommendation transparency"
       ],
-      "who_should_read": "NLP researchers and privacy engineers",
+      "who_should_read": "Recommendation system engineers",
       "paper": {
-        "id": "2610.40655v1",
-        "title": "Elucidating the Design Space of LM Data Attribution",
-        "summary": "Data attribution methods for Language Models (LMs) are typically evaluated using downstream tasks like fact retrieval. However, existing evaluations vary multiple dataset properties simultaneously, making it impossible to isolate exactly why an attribution algorithm fails. To diagnose these failures, we explore the design space of LLM data attribution, with a primary focus on evaluation. We introduce the Controlled Attribution Benchmark (CATT) for fact tracing, in which we fine-tune LLMs on entirely fictitious knowledge, providing unambiguous ground truth for attribution. This synthetic setup allows us to systematically alter one dataset configuration at a time, such as document redundancy and lexical distractors. With this configurable evaluation, we demonstrate that redundancy and distractors consistently degrade attribution performance. Rather than proposing a new estimator, we examine two design choices that are underexplored: the loss used to compute gradients and how per-token attribution scores are aggregated into a document score. We find that the true causal evidence within a training document is highly localized, but standard methods dilute this evidence into noise by averaging attribution scores across the entire document. We find that replacing standard cross-entropy loss gradients with the negative log-odds gradients surfaces the critical tokens from other uninformative ones. We can then aggregate only the top token scores to improve ground truth recall by 35 to 72 percentage points across multiple baselines on our diagnostic benchmark. The negative log-odds correction also generalizes to FTRACE-TREX, improving counterfactual retraining performance for every method we test, by up to 4.9x.",
+        "id": "2611.08487v1",
+        "title": "User Embeddings are Superpositions of Interpretable Behavioral Modes",
+        "summary": "User embeddings are central components of modern recommendation, personalization, and behavioral modeling systems. Though these embeddings can compactly encode rich behavioral information, they are inherently dense and opaque, limiting interpretability. To address this gap, we argue that user embeddings can be understood as sparse superpositions of interpretable behavioral modes. This structure is directly predicted by generative models of user behavior for linear embeddings and extends approximately to deep-learning representations by the superposition hypothesis. Superimposed modes can naturally be recovered by sparse dictionary learning methods, such as sparse autoencoders (SAEs), and recovered modes can be automatically named and queried in natural language. We validate mode recovery against known ground truth on synthetic data, where SAEs recover modes better than classical sparse baselines, including on transformer-encoded embeddings. We then apply the method to classical and transformer-based user embeddings from two real-world datasets. We also show how the corresponding natural-language labels enable zero-shot audience retrieval and characterization over embeddings never trained on text. The framework is post-hoc and model-agnostic, requiring no modification to the upstream embedding system.",
         "authors": [
-          "Steven Yu",
-          "Sheng-Yu Wang",
-          "Kimia Hamidieh"
+          "Jonathan Kozaczuk",
+          "Zheng Dong",
+          "Noyan Evirgen"
         ],
-        "url": "https://arxiv.org/abs/2610.40655v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.40655v1",
-        "category": "cs.CL",
+        "url": "https://arxiv.org/abs/2611.08487v1",
+        "pdf_url": "https://arxiv.org/pdf/2611.08487v1",
+        "category": "cs.LG",
         "source": "arxiv",
-        "published": "2026-10-29T17:59:53Z",
-        "github_implementations": 3,
-        "implementation_gap": false
+        "published": "2026-11-05T18:59:42Z",
+        "github_implementations": 0,
+        "implementation_gap": true
       }
     },
     {
-      "index": 2,
-      "tldr": "Private filtering scales noise to typical sensitivity, improving DP utility.",
+      "index": 3,
+      "tldr": "Grounded reasoning adds explicit location tokens to chain‑of‑thought for better problem solving.",
       "bullets": [
-        "Propose‑filter‑release framework with data‑dependent noise scaling",
-        "Theoretical guarantees matching standard DP bounds",
-        "Experiments showing 2‑3× utility gains on benchmark datasets"
+        "Define grounded reasoning protocol",
+        "Performance gains on spatial QA tasks",
+        "Analysis of when grounding helps versus hurts"
       ],
-      "who_should_read": "DP practitioners and data scientists",
+      "who_should_read": "NLP researchers working on reasoning",
       "paper": {
-        "id": "2610.40654v1",
-        "title": "Propose-Filter-Release: Scaling Noise to Typical Sensitivity via Private Filtering",
-        "summary": "An estimator can be accurate and stable on typical data, yet sensitive to a few possible records. Differentially private mechanisms commonly scale their noise to the worst-case influence of a single record, which lets these records dictate the noise even when the remaining data would allow far less. Removing them first would restore the smaller scale, but the removal must itself be private.   We introduce \\emph{propose-filter-release} (PFR), which, by privately filtering its input, turns a mechanism that protects the addition or removal of a typical record, one that fits the remaining data, into one that is differentially private in the standard sense, on every input. Using our novel filtering step, PFR requires only a concave friendliness score, which measures how well a record fits a dataset, and a release mechanism that is friendly-DP, that is, private when the changed record fits the remaining data. For every such score and release mechanism, it guarantees differential privacy under public conditions on the number of records, so it is a general privacy primitive, comparable to propose-test-release, and FriendlyCore can be viewed as one of its implementations.   We illustrate the generality of PFR by instantiating it for scalar statistics, principal subspace estimation, the KL divergence of user histograms, the effective resistances of a graph, and treatment-rule selection.",
+        "id": "2611.08485v1",
+        "title": "Where and Why is Grounded Reasoning Useful?",
+        "summary": "Grounded reasoning, where a model outputs text coordinates of relevant locations in chain-of-thought reasoning, is a common strategy for solving complex visual reasoning problems. However, the benefits and limitations of grounded reasoning are understudied. We study where and why grounded reasoning is most useful. To do so, we introduce a chain-of-thought analysis method to measure how much a model uses its outputted grounding in its thinking trace and perform a detailed ablation study of a grounded reasoning training recipe. We find that grounded reasoning improves counting but shows no significant gain over baselines without coordinate grounding across a wide range of spatial reasoning and perception benchmarks. Using several synthetic tasks, we show that grounded reasoning is most useful when a task requires undescribable references, which are visual concepts that are difficult to describe in language. However, we observe that many existing visual reasoning benchmarks are solvable with only describable text references. To close this gap, we introduce BrickVision, a new benchmark that requires undescribable visual references to solve.",
         "authors": [
-          "Moshe Shenfeld",
-          "Eliad Tsfadia",
-          "Katrina Ligett"
+          "David Yan",
+          "Le Xue",
+          "Forrest Huang"
         ],
-        "url": "https://arxiv.org/abs/2610.40654v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.40654v1",
-        "category": "cs.LG",
+        "url": "https://arxiv.org/abs/2611.08485v1",
+        "pdf_url": "https://arxiv.org/pdf/2611.08485v1",
+        "category": "cs.CV",
         "source": "arxiv",
-        "published": "2026-10-29T17:59:49Z",
-        "github_implementations": 3,
-        "implementation_gap": false
+        "published": "2026-11-05T18:59:32Z",
+        "github_implementations": 0,
+        "implementation_gap": true
       }
     },
     {
       "index": 4,
-      "tldr": "Neural thickets persist without weight perturbations, challenging prior robustness claims.",
+      "tldr": "LLM‑guided evolutionary search discovers programs via latent agent swarms.",
       "bullets": [
-        "Refutes weight‑perturbation necessity for expert neighborhoods",
-        "Introduces diagnostic metrics for thicket detection",
-        "Demonstrates implications for fine‑tuning stability"
+        "Introduce SwarmEvolve framework",
+        "Combine LLM prompting with population‑based mutation",
+        "State‑of‑the‑art on symbolic regression benchmarks"
       ],
-      "who_should_read": "Model robustness engineers",
+      "who_should_read": "ML engineers interested in program synthesis",
       "paper": {
-        "id": "2610.40649v1",
-        "title": "Rethinking Neural Thickets Without Weight Perturbations",
-        "summary": "The Neural Thickets hypothesis posits that pretrained language models lie in dense neighborhoods of task-specific experts in weight space, which random Gaussian perturbations can uncover. We reproduce the reported gains, but show that they do not require this geometric explanation. Perturbing a single decoder block already recovers much of the improvement, while keeping the model entirely frozen and adding a random bias to its output logits matches or exceeds full-weight perturbations on most reasoning tasks. This suggests an alternative explanation based on output diversity, validation-based selection, and voting. We formalize this view as Perturb-Select-Vote (PSV), a general procedure that generates perturbed predictors, selects high-performing members on a small validation set, and aggregates their predictions.   This interpretation connects Neural Thickets to established inference-time methods, including sampling, self-consistency, and verifier-guided selection. A first-order analysis further shows that small weight perturbations act primarily through their induced logit shifts. We extend this analysis to vision, where logit PSV substantially improves performance under domain shift, including on Earth observation, while full-weight perturbations provide little additional benefit. Together, these results suggest that the gains attributed to nearby weight-space experts can instead be obtained through output diversity, selection, and voting. Logit PSV realizes these benefits with a fully frozen model, providing a simple, training-free alternative to full-weight perturbation ensembles across language and vision.",
+        "id": "2611.08483v1",
+        "title": "SwarmEvolve: Latent Agent Swarms for Evolutionary Discovery and Optimization",
+        "summary": "LLM-guided evolutionary search uses AI agents to improve programs for mathematical and computational problems by iteratively refining solutions and combining high-scoring methods. However, the process is often slow because the LLM generates a long textual chain of thought for each round and must repeat this generation many times to maintain population diversity. We present SwarmEvolve, a framework in which hundreds of low-cost agents per round work in swarms, reason in latent space without decoding to text, and share information by passing KV caches. Each swarm studies the problem from a different angle. A novelty filter keeps the most distinct agent ideas by directly measuring the distances between the agents' hidden state vectors. Crossover of ideas happens naturally in latent space, as a summarizer agent receives the combined KV caches of all swarm members. On 21 problems in mathematical discovery and scientific computing, SwarmEvolve gets the highest average score and needs a median of only 3 to 8 minutes to reach the best scores that other state-of-the-art frameworks reach in 60 minutes. On several problems, SwarmEvolve with Qwen3 8B improves on the solutions that AlphaEvolve first found with frontier LLMs. Our work shows that agent swarms that communicate in latent space offer a fast, low-cost approach to program search for scientific problems.",
         "authors": [
-          "Nicolas Dufour",
-          "Elouan Gardès",
-          "Amil Dravid"
+          "Qile Jiang",
+          "George Em Karniadakis"
         ],
-        "url": "https://arxiv.org/abs/2610.40649v1",
-        "pdf_url": "https://arxiv.org/pdf/2610.40649v1",
-        "category": "cs.LG",
+        "url": "https://arxiv.org/abs/2611.08483v1",
+        "pdf_url": "https://arxiv.org/pdf/2611.08483v1",
+        "category": "cs.AI",
         "source": "arxiv",
-        "published": "2026-10-29T17:59:29Z",
-        "github_implementations": 3,
-        "implementation_gap": false
+        "published": "2026-11-05T18:59:29Z"
+      }
+    },
+    {
+      "index": 6,
+      "tldr": "EgoGeneralist unifies egocentric video tasks with a single 3D‑aware model.",
+      "bullets": [
+        "Video‑native architecture predicts metric 3D action",
+        "Pre‑train on large egocentric corpora",
+        "New records on hand‑object interaction benchmarks"
+      ],
+      "who_should_read": "Computer vision engineers building AR/VR perception",
+      "paper": {
+        "id": "2611.08477v1",
+        "title": "EgoGeneralist: Unifying Egocentric Action-Video Tasks through Video-Native Modeling",
+        "summary": "Modern video models possess strong visual priors, yet do not natively represent human action in metric 3D space. We present EgoGeneralist, which adapts pretrained video generators to unify action-conditioned egocentric video generation, pose estimation, and joint action-video generation. Our role-adaptive action renderer provides video-native representations for multidirectional action-video learning, making metric motion usable as both a spatial control signal and a recoverable generation target. Cross-stream action-video coupling establishes close correspondence between metric motion and visual dynamics through lightweight adaptation while preserving the pretrained visual prior. Together, these designs establish a generalist framework spanning five action-video tasks. Despite adaptation only on controlled laboratory recordings, EgoGeneralist generalizes to diverse unseen scenes and interactions with effective action control and visual quality, bridging pretrained visual knowledge and metric 3D human motion.",
+        "authors": [
+          "Yanlin Jin",
+          "Bowen Yang",
+          "Cheng Zhang"
+        ],
+        "url": "https://arxiv.org/abs/2611.08477v1",
+        "pdf_url": "https://arxiv.org/pdf/2611.08477v1",
+        "category": "cs.CV",
+        "source": "arxiv",
+        "published": "2026-11-05T18:58:13Z"
       }
     }
   ],
@@ -113,136 +132,186 @@
   "one_thing_to_try": null,
   "github_repos": [
     {
-      "id": "1438428788",
-      "title": "kumarshreshtha/protuna",
-      "summary": "Optimization framework for AI-guided protein engineering",
-      "url": "https://github.com/kumarshreshtha/protuna",
-      "stars": 52,
+      "id": "1446965145",
+      "title": "prabeakarve/microgpt",
+      "summary": "A from-scratch, dependency-free GPT implementation in pure NumPy: byte-level tokenizer, multi-head self-attention, Adam trainer, and top-k sampler.",
+      "url": "https://github.com/prabeakarve/microgpt",
+      "stars": 51,
       "language": "Python",
       "topics": [
-        "active-learning",
-        "bayesian-optimization",
-        "bioengineering",
-        "black-box-optimization",
-        "distributed",
-        "experimental-design",
-        "lead-optimization",
+        "attention",
+        "deep-learning",
+        "from-scratch",
+        "gpt",
+        "language-model",
+        "llm",
         "machine-learning",
-        "protein-engineering"
+        "numpy",
+        "python",
+        "transformer"
       ],
       "source": "github",
-      "created_at": "2026-10-29T13:02:34Z"
+      "created_at": "2026-11-05T12:21:34Z"
     },
     {
-      "id": "1435528433",
-      "title": "VikingAtKhan/mls-network-plugin-rpocket-team",
-      "summary": "AI anticheat for Minecraft servers: neural networks catch KillAura, aim assist, triggerbot and reach. Paper, Spigot, Folia 1.16.5–1.21.",
-      "url": "https://github.com/VikingAtKhan/mls-network-plugin-rpocket-team",
-      "stars": 51,
-      "language": "HTML",
-      "topics": [
-        "amongus",
-        "anti-exploit",
-        "bepinex",
-        "il2cpp",
-        "killaura-detection",
-        "lobby-moderation",
-        "machine-learning",
-        "minecraft-plugin-kotlin",
-        "ml",
-        "mlsac",
-        "neural-network",
-        "purpur"
-      ],
-      "source": "github",
-      "created_at": "2026-10-27T09:41:55Z"
-    },
-    {
-      "id": "1440248149",
-      "title": "kerlenton/bootgpt",
-      "summary": "A language model that lives in a boot sector",
-      "url": "https://github.com/kerlenton/bootgpt",
+      "id": "1447087645",
+      "title": "mwell70/node2vec",
+      "summary": "Python implementation of node2vec: scalable feature learning for networks with biased random walks and skip-gram.",
+      "url": "https://github.com/mwell70/node2vec",
       "stars": 50,
       "language": "Python",
       "topics": [
-        "assembly",
-        "bootsector",
-        "demoscene",
-        "language-model",
+        "gensim",
+        "graph-embeddings",
         "machine-learning",
-        "neural-networks",
-        "qemu",
-        "sizecoding",
-        "x86"
-      ],
-      "source": "github",
-      "created_at": "2026-10-30T21:28:17Z"
-    },
-    {
-      "id": "1437404645",
-      "title": "papisoV/Selenequant",
-      "summary": "A local-first AI quant research platform: questions are persistent, conclusions are versioned, and prior findings are recalled into the next call. Python + Next.js, AGPL-3.0-only.",
-      "url": "https://github.com/papisoV/Selenequant",
-      "stars": 41,
-      "language": "Python",
-      "topics": [
-        "ai-agents",
-        "algorithmic-trading",
-        "backtesting",
-        "crypto",
-        "llm",
-        "local-first",
-        "machine-learning",
-        "nextjs",
-        "overfitting",
-        "python",
-        "quant",
-        "quantitative-finance",
-        "quantitative-trading",
-        "trading-platform",
-        "typescript"
-      ],
-      "source": "github",
-      "created_at": "2026-10-28T17:20:43Z"
-    },
-    {
-      "id": "1437656497",
-      "title": "mehmetsongur/Machine-Learning-in-Economics-and-Finance",
-      "summary": "Weekly materials for the Dicle University course Machine Learning in Economics and Finance: slides, lecture videos and code. Course taught in Turkish.",
-      "url": "https://github.com/mehmetsongur/Machine-Learning-in-Economics-and-Finance",
-      "stars": 28,
-      "language": "Jupyter Notebook",
-      "topics": [
-        "econometrics",
-        "economics",
-        "finance",
-        "google-colab",
-        "machine-learning",
+        "networkx",
+        "node2vec",
         "python"
       ],
       "source": "github",
-      "created_at": "2026-10-28T21:36:44Z"
+      "created_at": "2026-11-05T14:14:49Z"
     },
     {
-      "id": "1435623213",
-      "title": "st1vms/AModel",
-      "summary": "Advanced machine learning and data-driven football (soccer) prediction engine designed to forecast match outcomes, analyze team performance, and process sports data seamlessly through automated setup and execution pipelines.",
-      "url": "https://github.com/st1vms/AModel",
-      "stars": 12,
+      "id": "1447088382",
+      "title": "garge33limer/imbalanced-dataset-sampler",
+      "summary": "A PyTorch sampler that rebalances class frequencies during training by resampling.",
+      "url": "https://github.com/garge33limer/imbalanced-dataset-sampler",
+      "stars": 50,
       "language": "Python",
       "topics": [
-        "ai-model",
-        "data-pipeline",
+        "deep-learning",
+        "imbalanced-data",
         "machine-learning",
-        "prediction-model",
         "python",
-        "soccer",
-        "soccer-analytics",
-        "soccer-data",
-        "soccer-prediction"
+        "pytorch",
+        "sampler"
       ],
       "source": "github",
-      "created_at": "2026-10-27T11:15:19Z"
+      "created_at": "2026-11-05T14:15:25Z"
+    },
+    {
+      "id": "1443018818",
+      "title": "Future-Proof-DS/interactive-ai-ml-tools",
+      "summary": "Free interactive tools for data scientists to learn MLOps, ML system design and agentic analytics: a production ML system map, ML project structure, data drift simulator, agentic analytics system map and AI evals.",
+      "url": "https://github.com/Future-Proof-DS/interactive-ai-ml-tools",
+      "stars": 28,
+      "language": null,
+      "topics": [
+        "agentic-ai",
+        "ai-agents",
+        "data-drift",
+        "data-science",
+        "interactive-learning",
+        "llm-evaluation",
+        "machine-learning",
+        "ml-system-design",
+        "mlops",
+        "model-monitoring",
+        "text-to-sql"
+      ],
+      "source": "github",
+      "created_at": "2026-11-02T13:44:28Z"
+    },
+    {
+      "id": "1444229625",
+      "title": "Burakkylmz/ml-labs",
+      "summary": "A hands-on Machine Learning laboratory built with Python, Scikit-learn, Pandas, NumPy, JupyterLab, Docker, and uv. Features reproducible, step-by-step labs covering data analysis, statistics, EDA, preprocessing, model training, evaluation, and forecasting.",
+      "url": "https://github.com/Burakkylmz/ml-labs",
+      "stars": 14,
+      "language": "Jupyter Notebook",
+      "topics": [
+        "data-preprocessing",
+        "data-science",
+        "docker",
+        "exploratory-data-analysis",
+        "feature-engineering",
+        "hands-on-labs",
+        "jupyterlab",
+        "machine-learning",
+        "model-evaluation",
+        "numpy",
+        "pandas",
+        "python",
+        "scikit-learn",
+        "time-series-forecasting",
+        "uv"
+      ],
+      "source": "github",
+      "created_at": "2026-11-03T11:59:55Z"
+    },
+    {
+      "id": "1445067282",
+      "title": "AuremHQ/weight-space-programming",
+      "summary": "wsp-kit by Aurem — an engineering tool for small models. Try to fix small open-weight models by editing weights directly, no retraining. An eval gate decides.",
+      "url": "https://github.com/AuremHQ/weight-space-programming",
+      "stars": 13,
+      "language": "Python",
+      "topics": [
+        "ai-engineering",
+        "eval-gate",
+        "llm",
+        "machine-learning",
+        "mcp",
+        "mechanistic-interpretability",
+        "model-editing",
+        "open-source",
+        "open-weight-models",
+        "python",
+        "small-language-models",
+        "weight-space-programming"
+      ],
+      "source": "github",
+      "created_at": "2026-11-04T02:27:22Z"
+    },
+    {
+      "id": "1447312576",
+      "title": "XploraHub/awesome-mineral-exploration",
+      "summary": "A curated list of open-source software for mineral exploration: geophysics, geological modelling, drillholes, geostatistics and prospectivity mapping.",
+      "url": "https://github.com/XploraHub/awesome-mineral-exploration",
+      "stars": 6,
+      "language": null,
+      "topics": [
+        "awesome",
+        "awesome-list",
+        "cheatsheet",
+        "exploration-geophysics",
+        "geochemistry",
+        "geology",
+        "geophysics",
+        "geoscience",
+        "geospatial",
+        "geostatistics",
+        "hyperspectral",
+        "machine-learning",
+        "mineral-exploration",
+        "mineral-prospectivity",
+        "mining",
+        "mining-technology",
+        "open-source",
+        "prospectivity-mapping",
+        "python",
+        "remote-sensing"
+      ],
+      "source": "github",
+      "created_at": "2026-11-05T17:34:33Z"
+    },
+    {
+      "id": "1448346373",
+      "title": "duartegroup/CHELATE",
+      "summary": "A post-docking filter for metalloprotein-ligand complexes: CHELATE predicts metal-binding-group RMSD and keeps only poses that place the metal coordination correctly. Includes the curated dataset, a six-program docking benchmark and trained models.",
+      "url": "https://github.com/duartegroup/CHELATE",
+      "stars": 6,
+      "language": "Jupyter Notebook",
+      "topics": [
+        "cheminformatics",
+        "drug-discovery",
+        "machine-learning",
+        "metalloproteins",
+        "molecular-docking",
+        "structural-biology"
+      ],
+      "source": "github",
+      "created_at": "2026-11-06T14:14:29Z"
     }
   ],
   "hn_posts": [
@@ -283,5 +352,57 @@
       "created_at": "2025-02-23T22:31:44Z"
     }
   ],
-  "implementation_gaps": []
+  "implementation_gaps": [
+    {
+      "id": "2611.08487v1",
+      "title": "User Embeddings are Superpositions of Interpretable Behavioral Modes",
+      "summary": "User embeddings are central components of modern recommendation, personalization, and behavioral modeling systems. Though these embeddings can compactly encode rich behavioral information, they are inherently dense and opaque, limiting interpretability. To address this gap, we argue that user embeddings can be understood as sparse superpositions of interpretable behavioral modes. This structure is directly predicted by generative models of user behavior for linear embeddings and extends approximately to deep-learning representations by the superposition hypothesis. Superimposed modes can naturally be recovered by sparse dictionary learning methods, such as sparse autoencoders (SAEs), and recovered modes can be automatically named and queried in natural language. We validate mode recovery against known ground truth on synthetic data, where SAEs recover modes better than classical sparse baselines, including on transformer-encoded embeddings. We then apply the method to classical and transformer-based user embeddings from two real-world datasets. We also show how the corresponding natural-language labels enable zero-shot audience retrieval and characterization over embeddings never trained on text. The framework is post-hoc and model-agnostic, requiring no modification to the upstream embedding system.",
+      "authors": [
+        "Jonathan Kozaczuk",
+        "Zheng Dong",
+        "Noyan Evirgen"
+      ],
+      "url": "https://arxiv.org/abs/2611.08487v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.08487v1",
+      "category": "cs.LG",
+      "source": "arxiv",
+      "published": "2026-11-05T18:59:42Z",
+      "github_implementations": 0,
+      "implementation_gap": true
+    },
+    {
+      "id": "2611.08486v1",
+      "title": "Do You Miss the Nights We Spent Crafting Figures? Rethinking Teaser and Framework Figures in the Age of Generative AI",
+      "summary": "Scientific figures give research ideas a visual form through choices of abstraction, composition, and emphasis. Generative AI offers new ways to realize these choices, raising questions about explanatory clarity and purposeful visual expression. We examine these questions through a visual retrospective of 371 motivation and framework figures from 200 papers. The corpus comprises a quota-based main sample of 160 papers spanning four temporal periods and a separate purposive style-contrast sample of 40 papers. A single multimodal judge evaluates six dimensions of communication and design, with three repeated judgments per figure. We attempt source-constrained revisions of all 371 figures, of which 369 pass the recorded fidelity checks. Original-figure ratings show no uniform decline across periods. Revisions increase mean clarity ratings by 0.428 points and decrease aesthetic coherence ratings by 0.111 points on a five-point scale. Gains in the six-dimension average are larger for main-sample motivation figures than for frameworks. Case analyses show that added explanation can clarify comparisons while leaving typographic hierarchy and visual economy unresolved. These model-based findings support researcher-led design, with AI assisting exploration and authors retaining responsibility for explanatory purpose, composition, and scientific relationships. The accompanying atlas and evaluation records are available at https://ntu-ai4x.github.io/Rethinking_Figures/index_en.html.",
+      "authors": [
+        "Xiaoqi Zhao",
+        "Youwei Pang",
+        "Kailai Zhou"
+      ],
+      "url": "https://arxiv.org/abs/2611.08486v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.08486v1",
+      "category": "cs.CV",
+      "source": "arxiv",
+      "published": "2026-11-05T18:59:33Z",
+      "github_implementations": 0,
+      "implementation_gap": true
+    },
+    {
+      "id": "2611.08485v1",
+      "title": "Where and Why is Grounded Reasoning Useful?",
+      "summary": "Grounded reasoning, where a model outputs text coordinates of relevant locations in chain-of-thought reasoning, is a common strategy for solving complex visual reasoning problems. However, the benefits and limitations of grounded reasoning are understudied. We study where and why grounded reasoning is most useful. To do so, we introduce a chain-of-thought analysis method to measure how much a model uses its outputted grounding in its thinking trace and perform a detailed ablation study of a grounded reasoning training recipe. We find that grounded reasoning improves counting but shows no significant gain over baselines without coordinate grounding across a wide range of spatial reasoning and perception benchmarks. Using several synthetic tasks, we show that grounded reasoning is most useful when a task requires undescribable references, which are visual concepts that are difficult to describe in language. However, we observe that many existing visual reasoning benchmarks are solvable with only describable text references. To close this gap, we introduce BrickVision, a new benchmark that requires undescribable visual references to solve.",
+      "authors": [
+        "David Yan",
+        "Le Xue",
+        "Forrest Huang"
+      ],
+      "url": "https://arxiv.org/abs/2611.08485v1",
+      "pdf_url": "https://arxiv.org/pdf/2611.08485v1",
+      "category": "cs.CV",
+      "source": "arxiv",
+      "published": "2026-11-05T18:59:32Z",
+      "github_implementations": 0,
+      "implementation_gap": true
+    }
+  ]
 }
